@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
         String Query= et_searchbox.getText().toString();
         URL githubSearchURL = NetworkUtils.buildUrl(Query);
         tv_url.setText(githubSearchURL.toString());
+        String githubSearchResults = null;
+
+        try{
+            githubSearchResults = NetworkUtils.getResponseFromHttpUrl(githubSearchURL);
+            tv_search_results.setText(githubSearchResults);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
